@@ -55,7 +55,7 @@ jobs:
         uses: npm ci
    
       - name: Run tests with Coverage
-        uses: npm test -- --coverage --watchAll=false --ci
+        run: npm test -- --coverage --watchAll=false --ci
         env:
           CI: true
 
