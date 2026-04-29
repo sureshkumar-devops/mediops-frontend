@@ -136,7 +136,7 @@ jobs:
           tags: |
              ${{ vars.DOCKER_USERNAME }}/${{ env.ECR_REPOSITORY }}:${{ env.TAG }}
       
-       - name: Display Bold Image Tag
+       - name: Display Bold Image Tag2
         run: |
           # This will show the full path clearly in the logs
           echo "---------------------------------------------------"
