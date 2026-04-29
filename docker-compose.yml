@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # 1. Database
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: pharma
+      POSTGRES_PASSWORD: pharma123
+      POSTGRES_DB: pharmadb
+    ports:
+      - "5432:5432"
+    networks:
+      - pharma-network
+
+  # 2. Auth Service (Java/Spring)
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    environment:
+      DB_HOST: postgres-db
+    depends_on:
+      - postgres-db
+    networks:
+      - pharma-network
+
+  # 3. Drug Catalog Service (Java/Spring)
+  drug-catalog-service:
+    build: ./drug-catalog-service
+    container_name: drug-catalog-service
+    environment:
+      DB_HOST: postgres-db
+    depends_on:
+      - postgres-db
+    networks:
+      - pharma-network
+
+  # 4. Notification Service (Node.js)
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    env_file: ./notification-service/.env
+    networks:
+      - pharma-network
+
+  # 5. API Gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - drug-catalog-service
+    networks:
+      - pharma-network
+
+  # 6. Pharma UI (Frontend)
+  pharma-ui:
+    build: ./pharma-ui
+    container_name: pharma-ui
+    ports:
+      - "80:8080"
+    depends_on:
+      - api-gateway
+    networks:
+      - pharma-network
+
+networks:
+  pharma-network:
+    driver: bridge
