@@ -48,7 +48,7 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install Dependencies
@@ -77,11 +77,11 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v4
         with:
-          version: '20'
+          version: '24'
           cache: 'npm'
     
       - name: Install Dependencies
-        run: npm clean install
+        run: npm ci
     
       - name: Build Production bundle
         run: npm run build
