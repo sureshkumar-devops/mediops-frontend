@@ -117,7 +117,7 @@ jobs:
         run: |
         # This will show the full path clearly in the logs
           echo -e "---------------------------------------------------"
-          echo -e "BUILDING IMAGE: \033[1m${{ vars.DOCKER_USERNAME }}/${{ECR_REPOSITORY}}:${{ env.IMAGE_TAG }}\033[0m"
+          echo -e "IMAGE-TAG: ${{ vars.DOCKER_USERNAME }}/${{ECR_REPOSITORY}}:${{ env.IMAGE_TAG }}"
           echo -e "---------------------------------------------------"  
       
       #- name: Login Docker Hub
