@@ -104,23 +104,23 @@ jobs:
     
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
    
-    steps:
-      - name: Code Checkout           
-        uses: actions/checkout@v4
+      steps:
+        - name: Code Checkout           
+          uses: actions/checkout@v4
 
-      - name: Set Image Tag
-        id: set-tag
-        run: |
-          BRANCH_NAME=${GITHUB_REF##*/}
-          SHORT_SHA=${GITHUB_SHA::7}
-          IMAGE_TAG="${BRANCH_NAME}-${SHORT_SHA}"
+        - name: Set Image Tag
+          id: set-tag
+          run: |
+            BRANCH_NAME=${GITHUB_REF##*/}
+            SHORT_SHA=${GITHUB_SHA::7}
+            IMAGE_TAG="${BRANCH_NAME}-${SHORT_SHA}"
 
-       - name: Display Bold Image Tag
-      run: |
-        # This will show the full path clearly in the logs
-        echo -e "---------------------------------------------------"
-        echo -e "BUILDING IMAGE: \033[1m${{ vars.DOCKER_USERNAME }}/${{ECR_REPOSITORY}}:${{ env.IMAGE_TAG }}\033[0m"
-        echo -e "---------------------------------------------------"  
+        - name: Display Bold Image Tag
+          run: |
+          # This will show the full path clearly in the logs
+          echo -e "---------------------------------------------------"
+          echo -e "BUILDING IMAGE: \033[1m${{ vars.DOCKER_USERNAME }}/${{ECR_REPOSITORY}}:${{ env.IMAGE_TAG }}\033[0m"
+          echo -e "---------------------------------------------------"  
       
       #- name: Login Docker Hub
       #  uses: docker/login-action@v3
