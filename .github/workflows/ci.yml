@@ -52,7 +52,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        uses: npm ci
+        run: npm ci
    
       - name: Run tests with Coverage
         run: npm test -- --coverage --watchAll=false --ci
